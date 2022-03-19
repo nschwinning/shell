@@ -4,8 +4,9 @@ https://github.com/spring-tips/spring-shell-native
 
 ## GraalVM Installation
 
-https://www.graalvm.org/22.0/docs/getting-started/macos/
-https://github.com/graalvm/setup-graalvm
+- https://www.graalvm.org/22.0/docs/getting-started/macos/
+- https://github.com/graalvm/setup-graalvm
+- https://docs.github.com/en/actions/quickstart
 
 ## Compile
 
