@@ -21,9 +21,9 @@ jobs:
           mvn -Pnative -DskipTests clean package
         if: runner.os != 'Windows'
       - name: Build shell for Windows
-          run: |
-            mvn -Pnative -DskipTests clean package
-          if: runner.os == 'Windows'
+        run: |
+          mvn -Pnative -DskipTests clean package
+        if: runner.os == 'Windows'
       - name: Upload binary
         uses: actions/upload-artifact@v2
         with:
