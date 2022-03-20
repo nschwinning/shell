@@ -16,13 +16,16 @@ jobs:
           java-version: '17'
           components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build shell
         run: |
           mvn -Pnative -DskipTests clean package
-
+        if: runner.os != 'Windows'
+      - name: Build shell for Windows
+          run: |
+            mvn -Pnative -DskipTests clean package
+          if: runner.os == 'Windows'
       - name: Upload binary
         uses: actions/upload-artifact@v2
         with:
           name: shell-${{ matrix.os }}-${{ matrix.version }}
-          path: target/shell-demo
+          path: target/shell-demo*
