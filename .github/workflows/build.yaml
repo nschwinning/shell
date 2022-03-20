@@ -1,0 +1,29 @@
+name: Spring Shell and GraalVM native image build
+on: [push, pull_request]
+jobs:
+  build:
+    name: ${{ matrix.version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        version: [ '22.0.0.2']
+        os: [macos-latest,  ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: ${{ matrix.version }}
+          java-version: '17'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build shell
+        run: |
+          mvn -Pnative -DskipTests clean package
+        if: runner.os != 'Windows'
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v2
+        with:
+          name: shell-${{ matrix.os }}-${{ matrix.version }}
+          path: target/shell
