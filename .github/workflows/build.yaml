@@ -29,4 +29,11 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: shell-${{ matrix.os }}-${{ matrix.version }}
-          path: target/shell-demo*
+          path: target/shell-demo
+        if: runner.os != 'Windows'
+      - name: Upload binary
+        uses: actions/upload-artifact@v2
+        with:
+          name: shell-${{ matrix.os }}-${{ matrix.version }}.exe
+          path: target/shell-demo.exe
+        if: runner.os == 'Windows'
