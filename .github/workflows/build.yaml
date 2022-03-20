@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         version: [ '22.0.0.2']
-        os: [macos-latest,  ubuntu-latest]
+        os: [macos-latest, windows-latest, ubuntu-latest]
     steps:
       - uses: actions/checkout@v2
       - uses: graalvm/setup-graalvm@v1
@@ -20,10 +20,9 @@ jobs:
       - name: Build shell
         run: |
           mvn -Pnative -DskipTests clean package
-        if: runner.os != 'Windows'
 
       - name: Upload binary
         uses: actions/upload-artifact@v2
         with:
           name: shell-${{ matrix.os }}-${{ matrix.version }}
-          path: target/shell
+          path: target/shell-demo
